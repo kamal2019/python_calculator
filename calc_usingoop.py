@@ -61,7 +61,7 @@ class calculator:
 		equation.set("") 
 
 
-pythoncalc = calculator()
+pythoncalc = calculator()  #object calling
 
 # Driver code 
 if __name__ == "__main__": 
