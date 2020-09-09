@@ -1,16 +1,24 @@
 # Python program to create a simple GUI
 # calculator using Tkinter
-
-# import everything from tkinter module
+from abc import ABC, abstractmethod #python module for making abstract classes
 from tkinter import *
 
 # globally declare the expression variable
 expression = ""
 
 
-# Function to update expressiom
-# in the text entry box
-class calculator:
+#abstract class 
+class abstract_calculator(ABC):
+    @abstractmethod
+    def press(self):
+        pass
+    def equalpress(self):
+        pass
+
+
+
+
+class calculator(abstract_calculator):   
     def press(self, num):
         # point out the global expression variable
         global expression
@@ -27,9 +35,6 @@ class calculator:
         # Try and except statement is used
         # for handling the errors like zero
         # division error etc.
-
-        # Put that code inside the try block
-        # which may generate the error
         try:
 
             global expression
@@ -52,16 +57,30 @@ class calculator:
             equation.set(" error ")
             expression = ""
 
+
+
+
+#inheritance class from calculator class
+
+class subcalculator(calculator):
     # Function to clear the contents
     # of text entry box
-
     def clear(self):
         global expression
         expression = ""
         equation.set("")
 
 
-pythoncalc = calculator()  #object calling
+# #polymorphism
+# for calculator in (obj_calc1, obj_calc2): 
+#     calculator.press()
+#     calculator.equal_press()
+#     calculator.clear() 
+
+
+
+#object calling from inheritance class
+pythoncalc = subcalculator()
 
 # Driver code
 if __name__ == "__main__":
@@ -77,25 +96,15 @@ if __name__ == "__main__":
     # set the configuration of GUI window
     gui.geometry("270x150")
 
-    # StringVar() is the variable class
-    # we create an instance of this class
     equation = StringVar()
 
-    # create the text entry box for
-    # showing the expression .
+
     expression_field = Entry(gui, textvariable=equation)
 
-    # grid method is used for placing
-    # the widgets at respective positions
-    # in table like structure .
     expression_field.grid(columnspan=4, ipadx=70)
 
     equation.set('enter your expression')
 
-    # create a Buttons and place at a particular
-    # location inside the root window .
-    # when user press the button, the command or
-    # function affiliated to that button is executed .
     button1 = Button(gui, text=' 1 ', fg='black', bg='red',
                      command=lambda: pythoncalc.press(1), height=1, width=7)
     button1.grid(row=2, column=0)
